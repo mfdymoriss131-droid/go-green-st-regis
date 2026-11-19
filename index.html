@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#174d36">
+  <title>Go Green | The St. Regis Cairo</title>
+  <style>
+    :root {
+      --green: #174d36;
+      --green-2: #286847;
+      --mint: #eaf3ec;
+      --ink: #1d2b22;
+      --muted: #718078;
+      --line: #dce6de;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; padding: 36px 18px;
+      display: grid; place-items: center;
+      background: linear-gradient(145deg, #f5f8f4, #e8f0e9);
+      color: var(--ink); font-family: Arial, Helvetica, sans-serif;
+    }
+    .page { width: min(100%, 560px); }
+    .brand { text-align: center; margin-bottom: 22px; }
+    .leaf {
+      width: 54px; height: 54px; margin: 0 auto 12px;
+      display: grid; place-items: center; border-radius: 18px;
+      background: var(--green); color: #d8efdc; font-size: 28px;
+    }
+    .brand h1 { margin: 0; color: var(--green); letter-spacing: .18em; font-size: 27px; }
+    .brand p { margin: 8px 0 0; color: var(--muted); font-size: 11px; letter-spacing: .22em; }
+    .card {
+      background: white; border: 1px solid rgba(23,77,54,.08);
+      border-radius: 22px; padding: clamp(22px, 5vw, 38px);
+      box-shadow: 0 18px 55px rgba(26, 63, 41, .09);
+    }
+    .card h2 { margin: 0 0 8px; font-size: 25px; color: var(--green); }
+    .intro { margin: 0 0 26px; color: var(--muted); line-height: 1.6; font-size: 14px; }
+    label { display: block; margin: 18px 0 8px; font-weight: 700; font-size: 13px; }
+    input[type="text"], input[type="tel"] {
+      width: 100%; border: 1px solid var(--line); border-radius: 11px;
+      padding: 14px 15px; outline: none; font: inherit; font-size: 14px;
+      background: #fcfdfc; transition: border .2s, box-shadow .2s;
+    }
+    input:focus { border-color: var(--green-2); box-shadow: 0 0 0 3px rgba(40,104,71,.10); }
+    .upload {
+      margin-top: 8px; border: 1.5px dashed #9ab7a2; border-radius: 14px;
+      background: #f8fbf8; min-height: 142px; padding: 22px;
+      display: grid; place-items: center; text-align: center; cursor: pointer;
+      transition: background .2s, border .2s;
+    }
+    .upload:hover, .upload.dragover { background: var(--mint); border-color: var(--green-2); }
+    .upload-icon { font-size: 28px; margin-bottom: 8px; }
+    .upload strong { color: var(--green); font-size: 14px; }
+    .upload small { display: block; color: var(--muted); margin-top: 7px; }
+    #photo { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+    #file-name { color: var(--green-2); font-size: 12px; margin-top: 8px; overflow-wrap: anywhere; }
+    button {
+      width: 100%; margin-top: 25px; border: 0; border-radius: 11px;
+      padding: 15px 18px; background: var(--green); color: white;
+      font-size: 13px; font-weight: 700; letter-spacing: .1em; cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    button:hover { background: var(--green-2); transform: translateY(-1px); }
+    button:disabled { opacity: .65; cursor: wait; transform: none; }
+    .note { text-align: center; color: var(--muted); font-size: 11px; margin: 17px 0 0; line-height: 1.5; }
+    footer { text-align: center; color: #819087; font-size: 11px; margin-top: 22px; }
+    @media (max-width: 420px) { body { padding: 24px 13px; } .brand h1 { font-size: 24px; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="brand">
+      <div class="leaf" aria-hidden="true">♧</div>
+      <h1>GO GREEN</h1>
+      <p>THE ST. REGIS CAIRO</p>
+    </header>
+
+    <section class="card">
+      <h2>Report an Issue</h2>
+      <p class="intro">Help us make our environment greener. Share the details below and our team can follow up.</p>
+
+      <form id="report-form"
+            action="https://formsubmit.co/mfdymoriss131@gmail.com"
+            method="POST"
+            enctype="multipart/form-data">
+        <input type="hidden" name="_subject" value="New Go Green Report — The St. Regis Cairo">
+        <input type="hidden" name="_template" value="table">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+        <label for="full-name">Full Name</label>
+        <input id="full-name" name="Full Name" type="text" placeholder="Enter your full name" autocomplete="name" required>
+
+        <label for="phone">Phone Number</label>
+        <input id="phone" name="Phone Number" type="tel" placeholder="Enter your phone number" autocomplete="tel" required>
+
+        <label for="location">Problem Location</label>
+        <input id="location" name="Problem Location" type="text" placeholder="Where is the problem located?" required>
+
+        <label for="photo">Upload Photo <span style="font-weight:400;color:#718078">(Optional)</span></label>
+        <label class="upload" id="drop-area" for="photo">
+          <span>
+            <span class="upload-icon" aria-hidden="true">＋</span><br>
+            <strong>Click to choose or drag a photo here</strong>
+            <small>PNG or JPG · Maximum total attachment size 10 MB</small>
+            <span id="file-name" aria-live="polite"></span>
+          </span>
+        </label>
+        <input id="photo" name="attachment" type="file" accept=".png,.jpg,.jpeg,image/png,image/jpeg">
+
+        <button id="submit-button" type="submit">SUBMIT REPORT</button>
+      </form>
+      <p class="note">Your details will be sent to the Go Green project team.<br>Photo upload is optional.</p>
+    </section>
+    <footer>GO GREEN · THE ST. REGIS CAIRO</footer>
+  </main>
+
+  <script>
+    const input = document.getElementById('photo');
+    const area = document.getElementById('drop-area');
+    const fileName = document.getElementById('file-name');
+    const form = document.getElementById('report-form');
+    const button = document.getElementById('submit-button');
+
+    function showFile(file) {
+      if (!file) { fileName.textContent = ''; return; }
+      const valid = ['image/png', 'image/jpeg'].includes(file.type);
+      if (!valid) {
+        input.value = '';
+        fileName.textContent = 'Please choose a PNG or JPG image.';
+        return;
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        input.value = '';
+        fileName.textContent = 'This image is over the 10 MB limit.';
+        return;
+      }
+      fileName.textContent = 'Selected: ' + file.name;
+    }
+    input.addEventListener('change', () => showFile(input.files[0]));
+    ['dragenter', 'dragover'].forEach(eventName => area.addEventListener(eventName, e => {
+      e.preventDefault(); area.classList.add('dragover');
+    }));
+    ['dragleave', 'drop'].forEach(eventName => area.addEventListener(eventName, e => {
+      e.preventDefault(); area.classList.remove('dragover');
+    }));
+    area.addEventListener('drop', e => {
+      const file = e.dataTransfer.files[0];
+      if (!file) return;
+      const transfer = new DataTransfer();
+      transfer.items.add(file);
+      input.files = transfer.files;
+      showFile(file);
+    });
+    form.addEventListener('submit', e => {
+      if (!form.reportValidity()) { e.preventDefault(); return; }
+      button.disabled = true;
+      button.textContent = 'SENDING REPORT…';
+    });
+  </script>
+</body>
+</html>
